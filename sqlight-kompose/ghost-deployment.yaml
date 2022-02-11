@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f sqlight.docker-compose.yaml -o sqlight-kompose/
+    kompose.version: 1.26.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: ghost
+  name: ghost
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: ghost
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f sqlight.docker-compose.yaml -o sqlight-kompose/
+        kompose.version: 1.26.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: ghost
+    spec:
+      containers:
+        - env:
+            - name: NODE_ENV
+              value: production
+            - name: url
+              value: http://localhost:8080
+          image: ghost:4-alpine
+          name: ghost-web
+          ports:
+            - containerPort: 2368
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/ghost/content
+              name: ghost-data
+      restartPolicy: Always
+      volumes:
+        - name: ghost-data
+          persistentVolumeClaim:
+            claimName: ghost-data
+status: {}
