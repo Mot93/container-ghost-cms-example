@@ -28,12 +28,16 @@ spec:
         - env:
             - name: NODE_ENV
               value: production
+            - name: server__host
+              value: 0.0.0.0
+            - name: server__port
+              value: "2424"
             - name: url
               value: http://localhost:8080
           image: ghost:4-alpine
           name: ghost-web
           ports:
-            - containerPort: 2368
+            - containerPort: 2424
           resources: {}
           volumeMounts:
             - mountPath: /var/lib/ghost/content

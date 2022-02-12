@@ -12,7 +12,7 @@ spec:
   ports:
     - name: "8080"
       port: 8080
-      targetPort: 2368
+      targetPort: 2424
   selector:
     io.kompose.service: ghost
 status:
