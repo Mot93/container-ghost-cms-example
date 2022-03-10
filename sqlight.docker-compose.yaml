@@ -13,9 +13,9 @@ services:
     restart: always
     volumes:
       # Delegate to Docker the creation of a volume
-      - ghost_data:/var/lib/ghost/content
+      #- ghost_data:/var/lib/ghost/content
       # Specify where to create place the files
-      #- ./ghost-data:/var/lib/ghost/content
+      - ./persistance/ghost-sqlight:/var/lib/ghost/content
     environment:
       # see https://ghost.org/docs/config/#configuration-options
       # this url value is just an example, and is likely wrong for your environment!
@@ -27,7 +27,4 @@ services:
 
 
 volumes:
-  # Delegate to Docker the creation of a volume
-  ghost_data: {}
-  # Specify where to create place the files
-  #ghost_data:
+  ghost_data:

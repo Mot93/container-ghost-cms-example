@@ -12,7 +12,10 @@ services:
       - 3306:3306
     restart: always
     volumes:
-      - db_data:/var/lib/mysql
+      # Delegate to Docker the creation of a volume
+      #- db_data:/var/lib/mysql
+      # Specify where to create place the files
+      - ./persistance/mysql5:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: ./db_root_password
       #MYSQL_ROOT_PASSWORD: GT/4=8Dy.*G{Cztx
@@ -28,7 +31,10 @@ services:
       - 8080:2368
     restart: always
     volumes:
-      - ghost_data:/var/lib/ghost/content
+      # Delegate to Docker the creation of a volume
+      #- ghost_data:/var/lib/ghost/content
+      # Specify where to create place the files
+      - ./persistance/ghost:/var/lib/ghost/content
     environment:
       # see https://ghost.org/docs/config/#configuration-options
       database__client: mysql
